@@ -2,8 +2,7 @@ package com.example.dio.model;
 
 import com.example.dio.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -21,6 +20,8 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private LocalDate createAt;
     private LocalDate lastModifiedAt;
