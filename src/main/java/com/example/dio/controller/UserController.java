@@ -23,4 +23,10 @@ public class UserController {
         return ResponseBuilder.success(HttpStatus.CREATED, "User Created", user);
     }
 
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<ResponseStructure<User>> findUserById(@PathVariable Long userId) {
+        User user = userService.findUserById(userId);
+        return ResponseBuilder.success(HttpStatus.OK, "User Found", user);
+    }
+
 }
