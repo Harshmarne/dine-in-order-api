@@ -1,6 +1,7 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.enums.UserRole;
+import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.model.Admin;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
@@ -24,6 +25,12 @@ public class UserServiceImpl implements UserService {
 
         this.mapToNewUser(user, user2);
         return userRepository.save(user2);
+    }
+
+    @Override
+    public User findUserById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(()-> new UserNotFoundByIdException("Failed to find user, user not found by Id"));
     }
 
     private User createUserByRole(UserRole role) {
