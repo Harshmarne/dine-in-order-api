@@ -1,5 +1,8 @@
 package com.example.dio.controller;
 
+import com.example.dio.dto.request.RegistertionRequest;
+import com.example.dio.dto.request.UserRequest;
+import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
 import com.example.dio.service.UserService;
 import com.example.dio.service.impl.UserServiceImpl;
@@ -18,15 +21,23 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<User>> registerUser(@RequestBody User user) {
-        user = userService.registar(user);
-        return ResponseBuilder.success(HttpStatus.CREATED, "User Created", user);
+    public ResponseEntity<ResponseStructure<UserResponse>> registerUser(@RequestBody RegistertionRequest registertionRequest) {
+        UserResponse userResponse = userService.registar(registertionRequest);
+        return ResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<ResponseStructure<User>> findUserById(@PathVariable Long userId) {
-        User user = userService.findUserById(userId);
-        return ResponseBuilder.success(HttpStatus.OK, "User Found", user);
+    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable Long userId) {
+        UserResponse userResponse = userService.findUserById(userId);
+        return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateById(@RequestBody UserRequest userRequest,@PathVariable long userId){
+
+        UserResponse userResponse = userService.updateUserById(userRequest,userId);
+        return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
+
     }
 
 }
