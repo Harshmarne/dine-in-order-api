@@ -30,7 +30,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/api/v1/register")
     @Operation(description = """
             The API Endpoints to Register the New User in Database
             """,
@@ -45,7 +45,7 @@ public class UserController {
         return ResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/api/v1/users/{userId}")
     @Operation(description = """
             The API Endpoints to Find The User By Id
             """,
@@ -60,7 +60,7 @@ public class UserController {
         return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/api/v1/users/{userId}")
     @Operation(description = """
             The API Endpoints to Register the New User in Database
             """,
