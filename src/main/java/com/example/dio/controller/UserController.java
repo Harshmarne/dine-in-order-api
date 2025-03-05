@@ -25,6 +25,7 @@ import lombok.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("${app.base-url}")
 @Tag(name = "User Controller",description = "Collection of APIs Endpoints Dealing with user Data")
 public class UserController {
 
