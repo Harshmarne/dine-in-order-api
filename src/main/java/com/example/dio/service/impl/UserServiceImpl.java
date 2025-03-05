@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    /**
+     * Produce and return child instance of the User Based on the User Role.
+     *
+     * @param role the role of the user
+     * @return User the parent reference containing either of Staff ot Admin Instance
+     */
     private User createUserByRole(UserRole role) {
         User user;
         switch (role) {

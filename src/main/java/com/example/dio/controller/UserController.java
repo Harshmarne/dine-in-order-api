@@ -43,7 +43,7 @@ public class UserController {
         })
     public ResponseEntity<ResponseStructure<UserResponse>> registerUser(@Valid @RequestBody RegistertionRequest registertionRequest) {
         UserResponse userResponse = userService.registar(registertionRequest);
-        return ResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
+        return ResponseBuilder.created( userResponse,"User Created");
     }
 
     @GetMapping("/users/{userId}")
@@ -58,7 +58,7 @@ public class UserController {
             })
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable Long userId) {
         UserResponse userResponse = userService.findUserById(userId);
-        return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
+        return ResponseBuilder.ok(userResponse,"User Found");
     }
 
     @PutMapping("/users/{userId}")
@@ -74,7 +74,7 @@ public class UserController {
     public ResponseEntity<ResponseStructure<UserResponse>> updateById(@RequestBody UserRequest userRequest,@PathVariable long userId){
 
         UserResponse userResponse = userService.updateUserById(userRequest,userId);
-        return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
+        return ResponseBuilder.ok(userResponse,"User Found");
 
     }
 
