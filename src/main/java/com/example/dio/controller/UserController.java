@@ -25,12 +25,13 @@ import lombok.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("${app.base-url}")
 @Tag(name = "User Controller",description = "Collection of APIs Endpoints Dealing with user Data")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/api/v1/register")
+    @PostMapping("/register")
     @Operation(description = """
             The API Endpoints to Register the New User in Database
             """,
@@ -45,7 +46,7 @@ public class UserController {
         return ResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
     }
 
-    @GetMapping("/api/v1/users/{userId}")
+    @GetMapping("/users/{userId}")
     @Operation(description = """
             The API Endpoints to Find The User By Id
             """,
@@ -60,7 +61,7 @@ public class UserController {
         return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
     }
 
-    @PutMapping("/api/v1/users/{userId}")
+    @PutMapping("/users/{userId}")
     @Operation(description = """
             The API Endpoints to Register the New User in Database
             """,
