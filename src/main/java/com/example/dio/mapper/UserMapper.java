@@ -7,10 +7,6 @@ import com.example.dio.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-/**
- * pr
- */
-
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 

@@ -1,14 +1,11 @@
 package com.example.dio.service;
 
 import com.example.dio.dto.request.RegistertionRequest;
+import com.example.dio.dto.request.RestaurantRequest;
 import com.example.dio.dto.request.UserRequest;
+import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
-
-/**
- * UserService interface inside this we have declared a some method
- * this interface implement to service class .
- */
 
 public interface UserService {
 
@@ -18,4 +15,5 @@ public interface UserService {
 
 
     UserResponse updateUserById(UserRequest userRequest, long userId);
+
 }
