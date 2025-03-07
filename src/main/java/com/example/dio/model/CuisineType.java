@@ -2,17 +2,21 @@ package com.example.dio.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Table(name = "admins")
-public class Admin extends User{
+@Getter
+@Setter
+public class CuisineType {
 
-    @OneToMany(mappedBy = "admin")
+    @Id
+    private String cuisines;
+
+    @ManyToMany(mappedBy = "cuisineTypes",fetch = FetchType.EAGER)
     private List<Restaurant> restaurants;
 }

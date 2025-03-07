@@ -1,12 +1,16 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.dto.request.RegistertionRequest;
+import com.example.dio.dto.request.RestaurantRequest;
 import com.example.dio.dto.request.UserRequest;
+import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
 import com.example.dio.exception.UserNotFoundByIdException;
+import com.example.dio.mapper.RestaurantMapper;
 import com.example.dio.mapper.UserMapper;
 import com.example.dio.model.Admin;
+import com.example.dio.model.Restaurant;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
 import com.example.dio.repositry.UserRepositry;
@@ -61,7 +65,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
+    /**
+     * Produce and return child instance of the User Based on the User Role.
+     *
+     * @param role the role of the user
+     * @return User the parent reference containing either of Staff ot Admin Instance
+     */
     private User createUserByRole(UserRole role) {
         User user;
         switch (role) {
