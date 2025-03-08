@@ -21,7 +21,6 @@ public class RestaurantController {
 
     @PostMapping("/restaurant/{userId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> restaurantRegister(@Valid @RequestBody RestaurantRequest restaurantRequest, @PathVariable long userId){
-        System.out.println(restaurantRequest.getCuisineTypes());
         RestaurantResponse restaurantResponse = restaurantService.restaurant(restaurantRequest,userId);
         return ResponseBuilder.created(restaurantResponse , "Restaurant Created Successfully");
     }
