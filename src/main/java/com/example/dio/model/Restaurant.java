@@ -25,6 +25,8 @@ public class Restaurant {
     private String email;
     private LocalTime opensAt;
     private LocalTime closeAt;
+
+    @Enumerated(EnumType.STRING)
     private List<DietType> diettypes;
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
@@ -34,4 +36,7 @@ public class Restaurant {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
+
+    @OneToMany(mappedBy = "restaurants")
+    private List<RestaurantTable> restaurantTables;
 }

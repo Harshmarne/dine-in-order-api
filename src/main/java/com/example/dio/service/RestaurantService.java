@@ -5,5 +5,4 @@ import com.example.dio.dto.response.RestaurantResponse;
 
 public interface RestaurantService {
     RestaurantResponse restaurant(RestaurantRequest restaurantRequest, long userId);
-
 }
