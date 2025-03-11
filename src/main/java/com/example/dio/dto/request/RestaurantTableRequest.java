@@ -10,11 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RestaurantTableRequest {
-
-    @NonNull
     private long tableno;
 
-    @NonNull
     private long tableCapacity;
 
     private TableStatus status;

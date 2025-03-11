@@ -1,9 +1,6 @@
 package com.example.dio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,9 @@ public class CuisineType {
 
     @Id
     private String cuisines;
+
+    @OneToMany(mappedBy = "cuisineType")
+    private List<FoodItem> foodItems;
 
     @ManyToMany(mappedBy = "cuisineTypes",fetch = FetchType.EAGER)
     private List<Restaurant> restaurants;
