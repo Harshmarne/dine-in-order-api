@@ -5,10 +5,11 @@ import com.example.dio.dto.request.RestaurantRequest;
 import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.model.CuisineType;
 import com.example.dio.model.Restaurant;
-import jakarta.validation.groups.Default;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
+@Component
 public interface RestaurantMapper {
 
     Restaurant mapToRestaurantEntity(RestaurantRequest restaurantRequest);

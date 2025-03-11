@@ -6,5 +6,5 @@ import jakarta.validation.Valid;
 
 public interface TableService {
 
-    RestaurantTableResponse addTable(@Valid RestaurantTableRequest restaurantTableRequest, long userId);
+    RestaurantTableResponse addTable(@Valid RestaurantTableRequest restaurantTableRequest, long restaurantId);
 }

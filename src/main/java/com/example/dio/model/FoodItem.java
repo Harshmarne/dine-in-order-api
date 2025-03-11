@@ -1,6 +1,6 @@
 package com.example.dio.model;
 
-
+import com.example.dio.enums.Availability;
 import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,28 +10,26 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Table(indexes = {@Index(name = "idx_name",columnList = "fooditem_name")
+})
 @EntityListeners(AuditingEntityListener.class)
-public class Restaurant {
+public class FoodItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long restaurantid;
-
-    private String name;
-    private String address;
-    private String contactnumber;
-    private String email;
-    private LocalTime opensAt;
-    private LocalTime closeAt;
+    private long fooditemId;
+    private String fooditemName;
+    private double price;
+    private String description;
+    private long stock;
 
     @Enumerated(EnumType.STRING)
-    private List<DietType> diettypes;
+    private Availability availability;
 
     @CreatedDate
     private LocalDate createdAt;
@@ -39,15 +37,17 @@ public class Restaurant {
     @LastModifiedDate
     private LocalDate lastModifiedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<CuisineType> cuisineTypes;
+    @Enumerated(EnumType.STRING)
+    private DietType dietType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Admin admin;
+    @ManyToOne
+    private CuisineType cuisineType;
 
-    @OneToMany(mappedBy = "restaurants")
-    private List<RestaurantTable> restaurantTables;
+    @ManyToOne
+    private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<FoodItem> foodItems;
+    @ManyToMany
+    private List<Category> categories;
+
+
 }
