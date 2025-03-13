@@ -30,5 +30,10 @@ public class FoodItemController {
     public ResponseEntity<ResponseStructure<List<FoodItemResponse>>> findByCategories(@RequestParam List<String> categories) {
         return ResponseBuilder.ok(foodItemService.findByCategories(categories), "Food item List found according categories");
     }
+
+    @GetMapping("/items/{restaurantId}")
+    public ResponseEntity<ResponseStructure<List<FoodItemResponse>>> findByRestaurantId(@PathVariable long restaurantId){
+        return ResponseBuilder.ok(foodItemService.findByRestaurant(restaurantId),"Food Item is Not Available");
+    }
 }
 

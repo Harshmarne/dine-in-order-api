@@ -4,7 +4,7 @@ import com.example.dio.dto.request.FoodItemRequest;
 import com.example.dio.dto.response.FoodItemResponse;
 import com.example.dio.enums.Availability;
 import com.example.dio.exception.FoodNotFoundException;
-import com.example.dio.exception.UserNotFoundByIdException;
+import com.example.dio.exception.RestaurantNotFoundByException;
 import com.example.dio.mapper.FoodItemMapper;
 import com.example.dio.model.Category;
 import com.example.dio.model.CuisineType;
@@ -38,7 +38,7 @@ public class FoodItemServiceImpl implements FoodItemService {
         FoodItem foodItem = foodItemMapper.mapToFoodItemEntity(foodItemRequest);
 
         Restaurant restaurant = restaurantRepositry.findById(restaurantId)
-                .orElseThrow(()-> new UserNotFoundByIdException("User Not Found"));
+                .orElseThrow(()-> new RestaurantNotFoundByException("Restaurant Not Found By Id , Invalid Restaurant Id"));
 
         cuisineTypeRepositry.findById(foodItem.getCuisineType().getCuisines())
                 .orElseGet(() -> {
@@ -83,6 +83,24 @@ public class FoodItemServiceImpl implements FoodItemService {
             else {
                 return foodItemList;
             }
+        }
+    }
+
+    /**
+     * @param restaurantId
+     * @return
+     */
+    @Override
+    public List<FoodItemResponse> findByRestaurant(long restaurantId) {
+        Restaurant restaurants = restaurantRepositry.findById(restaurantId)
+                .orElseThrow(()-> new RestaurantNotFoundByException("Restaurant Not Found By Id , Invalid Restaurant Id"));
+
+        List<FoodItem> foodItems = foodItemRepositry.findFoodItemByRestaurant(restaurants);
+
+        if(foodItems.isEmpty()){
+             throw new FoodNotFoundException("Invalid");
+        }else{
+            return foodItemMapper.mapToListOfFoodItemResponse(foodItems);
         }
     }
 
