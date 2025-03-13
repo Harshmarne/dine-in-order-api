@@ -28,4 +28,7 @@ public class RestaurantTable {
 
     @ManyToOne
     private Restaurant restaurants;
+
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<CartItem> cartItems;
 }
