@@ -1,6 +1,7 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.dto.response.CartItemResponse;
+import com.example.dio.enums.OrderStatus;
 import com.example.dio.exception.FoodNotFoundException;
 import com.example.dio.mapper.CartItemMapper;
 import com.example.dio.model.CartItem;
@@ -8,7 +9,7 @@ import com.example.dio.model.FoodItem;
 import com.example.dio.model.RestaurantTable;
 import com.example.dio.repositry.CartItemRepositry;
 import com.example.dio.repositry.FoodItemRepositry;
-import com.example.dio.repositry.TableRepositry;
+import com.example.dio.repositry.RestaurantTableRepositry;
 import com.example.dio.service.CartItemService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.security.InvalidParameterException;
 public class CartItemServiceImpl implements CartItemService {
 
     private final CartItemMapper cartItemMapper;
-    private final TableRepositry tableRepositry;
+    private final RestaurantTableRepositry restaurantTableRepositry;
     private final FoodItemRepositry foodItemRepositry;
     private final CartItemRepositry cartItemRepositry;
 
@@ -34,7 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItemResponse CreateCartItem(long tableId, long foodItemId, int quantity) {
 
-        RestaurantTable restaurantTable = tableRepositry.findById(tableId)
+        RestaurantTable restaurantTable = restaurantTableRepositry.findById(tableId)
                 .orElseThrow(() -> new InvalidParameterException("Table Not Found !!"));
 
         FoodItem foodItem = foodItemRepositry.findById(foodItemId)
@@ -73,6 +74,7 @@ public class CartItemServiceImpl implements CartItemService {
         cartItem.setQuantity(quantity);
         cartItem.setTotalPrice(foodItem.getPrice() * cartItem.getQuantity());
         cartItem.setRestaurantTable(restaurantTable);
+        cartItem.setIsOrdered(OrderStatus.NOT_ORDERED);
         return cartItem;
     }
 }
