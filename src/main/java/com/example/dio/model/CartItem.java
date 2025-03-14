@@ -19,6 +19,7 @@ public class CartItem {
 
     private double totalPrice;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus isOrdered;
 
     @ManyToOne
@@ -26,6 +27,7 @@ public class CartItem {
 
     @ManyToOne
     private FoodItem foodItem;
+
 
 
 }
