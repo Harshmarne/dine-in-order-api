@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 public class FoodItemResponse {
 
+    private long fooditemId;
     private String fooditemName;
     private double price;
     private String description;

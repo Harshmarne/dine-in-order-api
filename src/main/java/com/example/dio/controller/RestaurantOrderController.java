@@ -18,7 +18,7 @@ public class RestaurantOrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("restaurantTable/{resturantTableId}/cartItems/order")
+    @PostMapping("/orders/tables/{resturantTableId}")
     public ResponseEntity<ResponseStructure<OrderResponse>> placeOrder(@PathVariable long resturantTableId){
         OrderResponse orderResponse = orderService.createdOrder(resturantTableId);
         return ResponseBuilder.created(orderResponse,"Your Order Is Placed");

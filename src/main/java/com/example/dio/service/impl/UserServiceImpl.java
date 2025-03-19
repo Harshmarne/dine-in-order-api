@@ -16,6 +16,7 @@ import com.example.dio.model.User;
 import com.example.dio.repositry.UserRepositry;
 import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepositry userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse registar(RegistertionRequest registertionRequest) {
@@ -32,9 +34,16 @@ public class UserServiceImpl implements UserService {
 
         userMapper.mapToUserEntity(registertionRequest,user);
 
+        encryptPassword(user);
+
          userRepository.save(user);
 
         return userMapper.mapToUserResponse(user);
+    }
+
+    public void encryptPassword(User user){
+        String encodePassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
     }
 
     @Override

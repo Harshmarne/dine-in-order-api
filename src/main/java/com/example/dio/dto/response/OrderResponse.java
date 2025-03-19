@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Setter
 public class OrderResponse {
 
+    private long orderId;
+
     private BillStatus orderStatus;
 
     private LocalDate orderAt;
