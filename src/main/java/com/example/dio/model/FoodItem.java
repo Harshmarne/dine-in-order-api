@@ -52,7 +52,7 @@ public class FoodItem {
     @OneToMany(mappedBy = "foodItem")
     private List<CartItem> cartItems;
 
-    @OneToMany(mappedBy = "foodItem")
+    @OneToMany(mappedBy = "foodItem",fetch = FetchType.EAGER)
     private List<FoodImage> foodImages;
 
 

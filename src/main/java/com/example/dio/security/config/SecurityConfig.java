@@ -27,7 +27,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         String baseUrl = appEnv.getBaseUrl();
         return security.csrf(csrf -> csrf.disable())
-                .securityMatchers(match -> match.requestMatchers(baseUrl + "/**")) //Basically used to configure filter chain to accept request
+                .securityMatchers(match -> match.requestMatchers(baseUrl + "/**","/login/**","/logout/**")) //Basically used to configure filter chain to accept request
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
                         baseUrl+"/register",
                         baseUrl+"/restaurant/{restaurantId}/food-items"
