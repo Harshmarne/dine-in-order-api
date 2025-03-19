@@ -17,4 +17,10 @@
     base-url: /api/v1
 
 
+    cloudinary:
+      cloud-name: ${cloud_name}
+      api-key: ${api_key}
+      api-secret: ${api_secret}
+
+
 

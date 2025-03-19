@@ -1,7 +1,7 @@
 package com.example.dio.exception.handler;
 
 import com.example.dio.exception.FoodNotFoundException;
-import com.example.dio.exception.RestaurantTableNotFoundByException;
+import com.example.dio.exception.NoBillFoundException;
 import com.example.dio.utility.ResponseBuilder;
 import com.example.dio.utility.SimpleErrorResponse;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class RestaurantTableNotFoundException {
+public class BilNotFoundExceptionHandler {
+
     @ExceptionHandler
-    public ResponseEntity<SimpleErrorResponse> RestaurantTableNotFoundException(RestaurantTableNotFoundByException e){
+    public ResponseEntity<SimpleErrorResponse> RestaurantNotFoundException(NoBillFoundException e){
         return ResponseBuilder.notFound(e.getMessage());
     }
 }
