@@ -1,5 +1,8 @@
 package com.example.dio.dto.request;
 
+import com.example.dio.dto.constraints.Email;
+import com.example.dio.dto.constraints.NotEmptyNotBlank;
+import com.example.dio.dto.constraints.PhoneNumber;
 import com.example.dio.enums.DietType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -15,21 +18,16 @@ import java.util.List;
 @Setter
 public class RestaurantRequest {
 
-    @NotEmpty(message = "Username cannot be Empty")
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmptyNotBlank(message = "Not Empty and Blank Should Be Enter Min 3 Character")
     private String name;
 
-    @NotEmpty(message = "Username cannot be Empty")
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmptyNotBlank(message = "Not Empty and Blank Should Be Enter Min 3 Character")
     private String address;
 
-    @NotEmpty(message = "Username cannot be Empty")
-    @NotBlank(message = "Username cannot be blank")
+    @PhoneNumber
     private String contactnumber;
 
-    @NotEmpty (message = "Email cannot be Empty")
-    @NotBlank (message = "Username cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$",message = "Email is invalid")
+    @Email
     private String email;
 
     private LocalTime opensAt;

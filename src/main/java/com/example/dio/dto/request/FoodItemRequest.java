@@ -1,5 +1,6 @@
 package com.example.dio.dto.request;
 
+import com.example.dio.dto.constraints.NotEmptyNotBlank;
 import com.example.dio.enums.Availability;
 import com.example.dio.enums.DietType;
 import com.example.dio.model.CuisineType;
@@ -19,16 +20,16 @@ import java.util.List;
 @Setter
 public class FoodItemRequest {
 
-    @NotEmpty(message = "Username cannot be Empty")
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmptyNotBlank(message = "Not Empty and Blank Should Be Enter Min 3 Character")
     private String fooditemName;
-    
+
+    @NotEmpty(message = "Please Enter The Price")
     private double price;
 
-    @NotEmpty(message = "Username cannot be Empty")
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmptyNotBlank(message = "Not Empty and Blank Should Be Enter Min 3 Character")
     private String description;
 
+    @NotEmpty(message = "Please Enter The Stock")
     private long stock;
 
     private Availability availability;

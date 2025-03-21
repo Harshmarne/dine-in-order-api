@@ -15,12 +15,23 @@
 
   app:
     base-url: /api/v1
+    domain:
+      name: ${DOMAIN_NAME}
+      secure: ${DOMAIN_SECURE}
+      same-site: ${DOMAIN_SAME_SITE}
 
 
     cloudinary:
       cloud-name: ${cloud_name}
       api-key: ${api_key}
       api-secret: ${api_secret}
+
+    security:
+      secret: ${SECURITY_SECRET}
+      token_validity:
+        access-validity: 3600
+        refresh-validity: 1296000
+
 
 
 

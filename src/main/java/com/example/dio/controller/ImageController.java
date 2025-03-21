@@ -2,6 +2,7 @@ package com.example.dio.controller;
 
 import com.example.dio.service.ImageService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,7 @@ public class ImageController {
 
     private final ImageService imageService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload/{foodItemId}")
     public String uploadImage(@RequestParam("file") MultipartFile file, @PathVariable long foodItemId) {
         try {
