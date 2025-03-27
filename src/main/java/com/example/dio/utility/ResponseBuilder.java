@@ -72,5 +72,16 @@ public class ResponseBuilder {
                 .body(error);
     }
 
+    public static ResponseEntity<SimpleResponseStructure> success(HttpStatus status,HttpHeaders headers,String message){
+        SimpleResponseStructure simpleResponseStructure = SimpleResponseStructure.builder()
+                .status(status.value())
+                .message(message)
+                .build();
+
+        return ResponseEntity.status(status)
+                .headers(headers)
+                .body(simpleResponseStructure);
+    }
+
 }
 

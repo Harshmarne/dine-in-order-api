@@ -16,6 +16,7 @@ import com.example.dio.repositry.FoodItemRepositry;
 import com.example.dio.repositry.RestaurantRepositry;
 import com.example.dio.service.FoodItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,7 +91,9 @@ public class FoodItemServiceImpl implements FoodItemService {
      * @param restaurantId
      * @return
      */
+
     @Override
+    @Cacheable(cacheNames = "food-item-cache",key = "#restaurantId")
     public List<FoodItemResponse> findByRestaurant(long restaurantId) {
         Restaurant restaurants = restaurantRepositry.findById(restaurantId)
                 .orElseThrow(()-> new RestaurantNotFoundByException("Restaurant Not Found By Id , Invalid Restaurant Id"));

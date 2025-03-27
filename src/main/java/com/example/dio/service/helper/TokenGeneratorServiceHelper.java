@@ -4,8 +4,8 @@ import com.example.dio.config.AppEnv;
 import com.example.dio.security.jwt.JwtService;
 import com.example.dio.security.jwt.TokenPayload;
 import com.example.dio.security.jwt.TokenType;
+import com.example.dio.security.util.CookieManager;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -18,24 +18,13 @@ public class TokenGeneratorServiceHelper {
 
     private final AppEnv appEnv;
     private final JwtService jwtService;
+    private final CookieManager cookieManager;
 
     public String generateToken(TokenType tokenType, Map<String, Object> claims, Instant shouldExpireAt){
         TokenPayload tokenPayload = generateTokenPlayload(tokenType,claims,shouldExpireAt);
         String token = jwtService.generateToken(tokenPayload);
         long maxAge = Duration.between(Instant.now(),shouldExpireAt).getSeconds();
-        return generateCookie(tokenType,token,maxAge);
-    }
-
-    private String generateCookie(TokenType tokenType,String token,long maxAge){
-       return ResponseCookie.from(tokenType.type(),token)
-                .domain(appEnv.getDomain().getName())
-                .path("/")
-                .sameSite(appEnv.getDomain().getSameSite())
-                .httpOnly(true)
-                .secure(appEnv.getDomain().isSecure())
-                .maxAge(maxAge)
-                .build()
-                .toString();
+        return cookieManager.generateCookie(tokenType.type(),token,maxAge);
     }
 
     private TokenPayload generateTokenPlayload(TokenType tokenType, Map<String, Object> claims, Instant shouldExpireAt){
