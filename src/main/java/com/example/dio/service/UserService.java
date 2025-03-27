@@ -11,9 +11,8 @@ public interface UserService {
 
     UserResponse registar(RegistertionRequest registertionRequest);
 
-    UserResponse findUserById(long userId);
+    UserResponse findUserById();
 
-
-    UserResponse updateUserById(UserRequest userRequest, long userId);
+    UserResponse updateUserById(UserRequest userRequest);
 
 }

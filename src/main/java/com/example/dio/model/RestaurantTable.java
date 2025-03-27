@@ -5,6 +5,7 @@ import com.example.dio.enums.TableStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class RestaurantTable {
 
     private long tableno;
     private long tableCapacity;
+
+    @CreatedBy
+    private String createdBy;
 
     @Enumerated(EnumType.STRING)
     private TableStatus status;

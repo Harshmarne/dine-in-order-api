@@ -4,6 +4,7 @@ package com.example.dio.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public class Staff extends User{
 
     @ManyToMany
     private List<RestaurantTable> restaurantTables;
+
+    @CreatedBy
+    private String createdBy;
 }

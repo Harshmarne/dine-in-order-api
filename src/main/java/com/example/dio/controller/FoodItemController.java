@@ -9,6 +9,7 @@ import com.example.dio.utility.ResponseStructure;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,13 @@ public class FoodItemController {
 
     private final FoodItemService foodItemService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/fooditem/{restaurantId}")
     public ResponseEntity<ResponseStructure<FoodItemResponse>> foodItem(@Valid @RequestBody FoodItemRequest foodItemRequest, @PathVariable long restaurantId) {
         FoodItemResponse foodItemResponse = foodItemService.addFoodItem(foodItemRequest, restaurantId);
         return ResponseBuilder.created(foodItemResponse, "FoodItem Added SuccsessFully");
     }
-
+    
     @GetMapping("/items/categories")
     public ResponseEntity<ResponseStructure<List<FoodItemResponse>>> findByCategories(@RequestParam List<String> categories) {
         return ResponseBuilder.ok(foodItemService.findByCategories(categories), "Food item List found according categories");

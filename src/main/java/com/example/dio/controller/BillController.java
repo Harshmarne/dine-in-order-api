@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class BillController{
 
     private final BillService billService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/bills/tables/{tableId}")
     public ResponseEntity<ResponseStructure<BillResponse>> createBill(@PathVariable long tableId){
         BillResponse billResponse = billService.billGenerate(tableId);

@@ -11,6 +11,7 @@ import com.example.dio.model.User;
 import com.example.dio.repositry.CuisineTypeRepositry;
 import com.example.dio.repositry.RestaurantRepositry;
 import com.example.dio.repositry.UserRepositry;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.RestaurantService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,25 +25,21 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantRepositry restaurantRepositry;
     private final CuisineTypeRepositry cuisineTypeRepositry;
     private final UserRepositry userRepositry;
+    private final UserIdentity userIdentity;
 
     @Override
-    public RestaurantResponse restaurant(RestaurantRequest restaurantRequest, long userId) {
-        User user = userRepositry.findById(userId).orElseThrow(() -> new UserNotFoundByIdException("User not found , Invalid User"));
-        if(user instanceof Admin admin){
+    public RestaurantResponse restaurant(RestaurantRequest restaurantRequest) {
+        User user = userIdentity.getCurrentUser();
             Restaurant restaurant = restaurantMapper.mapToRestaurantEntity(restaurantRequest);
 
             List<CuisineType> cuisineTypes = this.createNotExistingCuisineTypes(restaurant.getCuisineTypes());
             restaurant.setCuisineTypes(cuisineTypes);
-            restaurant.setAdmin(admin);
+            restaurant.setAdmin((Admin) user);
 
             restaurantRepositry.save(restaurant);
 
             return restaurantMapper.mapToRestaurantResponse(restaurant);
 
-        }
-        else {
-            throw new UserNotFoundByIdException("Admin Not Valid");
-        }
     }
 
 

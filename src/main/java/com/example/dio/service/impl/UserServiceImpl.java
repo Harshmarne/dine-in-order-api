@@ -1,19 +1,15 @@
 package com.example.dio.service.impl;
 
 import com.example.dio.dto.request.RegistertionRequest;
-import com.example.dio.dto.request.RestaurantRequest;
 import com.example.dio.dto.request.UserRequest;
-import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
-import com.example.dio.exception.UserNotFoundByIdException;
-import com.example.dio.mapper.RestaurantMapper;
 import com.example.dio.mapper.UserMapper;
 import com.example.dio.model.Admin;
-import com.example.dio.model.Restaurant;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
 import com.example.dio.repositry.UserRepositry;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepositry userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserIdentity userIdentity;
 
     @Override
     public UserResponse registar(RegistertionRequest registertionRequest) {
@@ -47,33 +44,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findUserById(long userId) {
-        return  userRepository.findById(userId)
-                .map(userMapper::mapToUserResponse)
-                .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by Id"));
+    public UserResponse findUserById() {
+        User user = userIdentity.getCurrentUser();
+        userRepository.findById(user.getUserid());
+        return userMapper.mapToUserResponse(user);
     }
 
     @Override
-    public UserResponse updateUserById(UserRequest userRequest, long userId) {
-//        User exuser = userRepository.findById(userId)
-//                .orElseThrow(()-> new UserNotFoundByIdException("Failed to find user, user not found by Id"));
-//
-            //may have to delele this
-//        userMapper.mapToUserEntity(userRequest , exuser);
-//        User user = userRepository.save(exuser);
-//        return userMapper.mapToUserResponse(user);
-
-        //Lamda Expresion
-        return userRepository.findById(userId)
-                .map(exUser -> {
+    public UserResponse updateUserById(UserRequest userRequest) {
+                    User exUser = userIdentity.getCurrentUser();
+                    userIdentity.validateOwnerShip(exUser.getUsername());
+                    
                     userMapper.mapToUserEntity(userRequest , exUser);
                     userRepository.save(exUser);
                     return userMapper.mapToUserResponse(exUser);
-                })
-                    .orElseThrow(()-> new UserNotFoundByIdException("Failed to find user, user not found by Id"));
-
     }
-
     /**
      * Produce and return child instance of the User Based on the User Role.
      *

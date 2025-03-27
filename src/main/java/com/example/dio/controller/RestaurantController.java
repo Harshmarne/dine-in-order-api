@@ -10,6 +10,7 @@ import com.example.dio.utility.ResponseStructure;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +20,10 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @PostMapping("/restaurant/{userId}")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> restaurantRegister(@Valid @RequestBody RestaurantRequest restaurantRequest, @PathVariable long userId){
-        RestaurantResponse restaurantResponse = restaurantService.restaurant(restaurantRequest,userId);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/restaurant")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> restaurantRegister(@Valid @RequestBody RestaurantRequest restaurantRequest){
+        RestaurantResponse restaurantResponse = restaurantService.restaurant(restaurantRequest);
         return ResponseBuilder.created(restaurantResponse , "Restaurant Created Successfully");
     }
 }

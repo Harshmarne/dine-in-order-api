@@ -5,6 +5,7 @@ import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,6 +30,9 @@ public class Restaurant {
     private String email;
     private LocalTime opensAt;
     private LocalTime closeAt;
+
+    @CreatedBy
+    private String CreatedBy;
 
     @Enumerated(EnumType.STRING)
     private List<DietType> diettypes;

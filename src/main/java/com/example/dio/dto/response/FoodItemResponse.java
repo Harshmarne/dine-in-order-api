@@ -23,4 +23,5 @@ public class FoodItemResponse {
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
     private List<String> categories;
+    private List<String> foodImages;
 }

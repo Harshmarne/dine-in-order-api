@@ -9,6 +9,7 @@ import com.example.dio.utility.ResponseStructure;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,7 @@ public class TableController {
 
     private final TableService tableService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/table/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantTableResponse>> restaurantRegister(@Valid @RequestBody RestaurantTableRequest restaurantTableRequest, @PathVariable long restaurantId){
         RestaurantTableResponse restaurantTableResponse = tableService.addTable(restaurantTableRequest,restaurantId);

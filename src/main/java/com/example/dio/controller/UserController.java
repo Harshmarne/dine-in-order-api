@@ -56,12 +56,12 @@ public class UserController {
                             @Content(schema = @Schema(implementation = SimpleErrorResponse.class))
                     })
             })
-    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable Long userId) {
-        UserResponse userResponse = userService.findUserById(userId);
+    public ResponseEntity<ResponseStructure<UserResponse>> findUserById() {
+        UserResponse userResponse = userService.findUserById();
         return ResponseBuilder.ok(userResponse,"User Found");
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/users")
     @Operation(description = """
             The API Endpoints to Register the New User in Database
             """,
@@ -71,9 +71,9 @@ public class UserController {
                             @Content(schema = @Schema(implementation = SimpleErrorResponse.class))
                     })
             })
-    public ResponseEntity<ResponseStructure<UserResponse>> updateById(@RequestBody UserRequest userRequest,@PathVariable long userId){
+    public ResponseEntity<ResponseStructure<UserResponse>> updateById(@RequestBody UserRequest userRequest){
 
-        UserResponse userResponse = userService.updateUserById(userRequest,userId);
+        UserResponse userResponse = userService.updateUserById(userRequest);
         return ResponseBuilder.ok(userResponse,"User Found");
 
     }
